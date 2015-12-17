@@ -1,35 +1,40 @@
 // d3
 
-console.log("ello")
 
-// var height = 500;
-// var width = 900;
+var height = 600;
+var width = 900;
 
-// var projection = d3.geo.stereographic()    
-//     .center([3.9,43.0])    
-//     .scale(1000)    
-//     .translate([width / 4 , height / 2]);   
+var projection = d3.geo.albers()
+		.center([10.6, 51])
+		.rotate([-4.4, 0])    
+		.scale(4000)    
+		.translate([width / 2 , height / 2]);   
 
-//  var svg = d3.select("#map")
-// 					 .append("svg")
-// 					 .attr("width", w)
-// 					 .attr("height", h);
+// var projection = d3.geo.mercator()
+//     .scale((width + 1) / 2 / Math.PI)
+//     .translate([width / 2, height / 2])
+//     .precision(.1);
 
-// var color = d3.scale.linear().domain([0,15])
-//             .range(['red', 'green', 'blue', 'magenta']);
+var svg = d3.select("#map")
+				 .append("svg")
+				 .attr("width", width)
+				 .attr("height", height);
 
-// var path = d3.geo.path()
-// 			 .projection(projection)
+var color = d3.scale.linear().domain([0,15])
+            .range(['red', 'green', 'blue', 'magenta']);
 
-//  var g = svg.append("g");
+var path = d3.geo.path()
+			 .projection(projection)
 
-//  d3.json("geo.json", function (error, data) {
-//     g.selectAll("path")
-//     .data(topojson.feature(topology, topology.objects.usStates).features)
-//     .enter()
-//     .append("path")
-//     .attr('d', path);
-//  });
+ var g = svg.append("g");
+
+ d3.json("json/deutschland.json", function (error, topology) {
+    g.selectAll("path")
+    .data(topojson.feature(topology, topology.objects.DEU_adm2).features)
+    .enter()
+    .append("path")
+    .attr('d', path);
+ });
 
 
  // g.selectAll('path')
